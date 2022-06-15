@@ -7,17 +7,22 @@
     <title>네이버 영화</title>
 </head>
 
-<body>
-    <p>검색 결과 화면</p>
-    <div>
+<body style="text-align: center; background-color: #6E6E6E; ">
+    <div style="background-color: white; margin: 50px; padding: 20px;">
+        <h2 style="text-align: left;"> 네이버 검색 결과</h2>
         {% if lists %}
-        <ul>
             {% for list in lists %}
-            <a href="{% url 'detail' list.1 %}">
-                <li>{{ list.2 }} </li>
-            </a>
+            <div style="border-top: 1px solid#E5E5E5; border-bottom: 1px solid#E5E5E5; padding: 20px;">
+                <img style= "width: 100px;" src="{{ list.14 }}"/>
+                <div>
+                    <a style="text-decoration: none; color: black; font-size: 16px;" href="{% url 'detail' list.1 %}">
+                        <p>{{ list.2 }} ({{ list.3 }}) </p>
+                        <p>{{ list.10 }} | {{ list.11 }} | {{ list.13 }}</p>
+                    </a>
+                </div>
+            </div>
             {% endfor %}
-        </ul>
+
         {% else %}
         <p>검색 결과가 없습니다.</p>
         {% endif %}
