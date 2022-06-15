@@ -226,11 +226,54 @@ def naver_key_select_actor(query):
     my_set = set(list)
     return my_set
 
-def simple_select(query):
+def simple_select(query, sort_condition, search_condition):
     conn, cur = open_db()
-    sql = """select * from movie where kr_title like "%s";
-         """ %(query+'%')
-    cur.execute(sql)
+    order_sql = {"1": "order by m.kr_title", "2": "order by m.kr_title desc", "3": "order by year(opening_date)",
+                    "4": "order by year(opening_date) desc", "5": "order by m.audience_rate desc", "6": "order by m.audience_rate"}
+    
+    if search_condition == "1":
+        sql = """select distinct * from movie m where kr_title like "%s"
+                    %s;
+            """ %(query+'%', order_sql[sort_condition])
+        cur.execute(sql)
+    elif search_condition == "2":
+        sql = """select distinct m.*
+                from  actor a, movie_role r, movie m
+                where a.aid = r.aid and r.naver_key = m.naver_key and kr_name like "%s"
+                    %s;
+            """ %(query+'%', order_sql[sort_condition])
+        cur.execute(sql)
+    elif search_condition == "3":
+        sql = """select distinct m.*
+                from  director d, movie_director md, movie m
+                where d.did = md.did and md.naver_key = m.naver_key and kr_name like "%s"
+                    %s;
+            """ %(query+'%', order_sql[sort_condition])
+        cur.execute(sql)
+    elif search_condition == "4":
+        sql = """select distinct m.*
+                from  scope s, movie m
+                where s.naver_key = m.naver_key and s.scope_str like "%s"
+                    %s;
+            """ %(query+'%', order_sql[sort_condition])
+        cur.execute(sql)
+    elif search_condition == "5":
+        sql = """select * from movie m where m.opening_date >= "%s"
+                    %s;
+            """ %(query+'%', order_sql[sort_condition])
+        cur.execute(sql)    
+    elif search_condition == "6":
+        sql = """select * from movie m where DATE_FORMAT(opening_date,'%%Y') like "%s"
+                    %s;
+            """ %(query+'%', order_sql[sort_condition])
+        cur.execute(sql)
+    elif search_condition == "7":
+        sql = """select distinct m.*
+                from  country c, movie m
+                where c.naver_key = m.naver_key and c.country_str like "%s"
+                    %s;
+            """ %(query+'%', order_sql[sort_condition])
+        cur.execute(sql)
 
     r = cur.fetchone()
     list = []
@@ -247,7 +290,13 @@ def simple_select(query):
 
 def search(request):
     q = request.POST.get('query_str', '')
-    lists = simple_select(q)
+    sort_condition = request.POST.get('sort_condition', '')
+    search_condition = request.POST.get('search_condition', '')
+    
+    print(sort_condition)
+    print(search_condition)
+
+    lists = simple_select(q, sort_condition, search_condition)
 
     template = loader.get_template('home/search_result.html')
     context = {
