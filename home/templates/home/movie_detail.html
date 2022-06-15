@@ -124,7 +124,7 @@
     </div>
 
     <div>
-        <h2>평점</h2>
+        <h2>관람객 평점</h2>
         {% if user_rate %}
             {% for u in user_rate %}
             <div style="background-color:#EDF7FF; padding: 10px;">
@@ -138,6 +138,22 @@
                     |
                     <span>싫어요 {{ u.4 }}</span>
                 </div>
+            </div>
+            {% endfor %}
+        {% else %}
+        {% endif %}
+    </div>
+
+    <div>
+        <h2>기자 평론가 평점</h2>
+        {% if journalist_rate %}
+            {% for j in journalist_rate %}
+            <div style="background-color:#EDF7FF; padding: 10px;">
+                <img src="{{ j.0 }}"/>
+                <span>{{ j.1 }} 영화 저널 리스트</span>
+                <p>{{ j.2 }}</p>
+                <p>{{ j.3 }} 점</p>
+                <p>{{ j.4 }}</p>
             </div>
             {% endfor %}
         {% else %}
