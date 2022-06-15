@@ -169,6 +169,23 @@ def naver_key_select_user_review(query):
     close_db(conn, cur)
     my_set = set(list)
     return my_set
+
+def naver_key_select_comments(query):
+    conn, cur = open_db()
+    sql = """select * from comments where naver_r_key = %d;
+         """ %(query)
+    cur.execute(sql)
+
+    r = cur.fetchone()
+    list = []
+    while r:
+        t = (r['writer'], r['contents'], r['comment_date'], r['good'], r['bad'])
+        list.append(t)
+        r = cur.fetchone()
+
+    close_db(conn, cur)
+    my_set = set(list)
+    return my_set
     
 
 def naver_key_select_director(query):
@@ -228,7 +245,7 @@ def simple_select(query):
     
     return list
 
-def photo_search(request):
+def search(request):
     q = request.POST.get('query_str', '')
     lists = simple_select(q)
 
@@ -273,5 +290,14 @@ def movie_detail(request, id):
         'review': review,
         'journalist_rate': journalist_rate,
         'famous_line': famous_line,
+    }
+    return HttpResponse(template.render(context, request))
+
+def comments(request, id):
+    comments = naver_key_select_comments(id)
+
+    template = loader.get_template('home/comments.html')
+    context = {
+        'comments': comments,
     }
     return HttpResponse(template.render(context, request))

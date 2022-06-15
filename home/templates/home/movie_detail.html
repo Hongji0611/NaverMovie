@@ -176,6 +176,7 @@
                     <span>추천 {{ r.6 }}</span> | 신고
                 </div>
                 <p>{{ r.7 }}...</p>
+                <a href="{% url 'comments' r.0 %}">댓글 보기</a>
             </div>
             {% endfor %}
         {% else %}

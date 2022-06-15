@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" style="height: 100%; margin: 0; padding: 0;">
+
+<head>
+    <meta charset="UTF-8">
+    <title>네이버 영화</title>
+</head>
+
+<body>
+    <div>
+        <h2>댓글</h2>
+        {% if comments %}
+            {% for c in comments %}
+            <div style="background-color:#EDF7FF; padding: 10px;">
+                <p>{{ c.0 }}</p>
+                <p>{{ c.1 }}</p>
+                <p>{{ c.2 }} | 신고</p>
+                <div>
+                    <span>👍 {{ c.3 }}</span> |
+                    <span>👎{{ c.4 }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+        {% endif %}
+    </div>
+</body>
+
+</html>
