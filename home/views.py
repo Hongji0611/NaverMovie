@@ -136,6 +136,23 @@ def naver_key_select_journalist_rate(query):
     my_set = set(list)
     return my_set
 
+def naver_key_select_famous_line(query):
+    conn, cur = open_db()
+    sql = """select * from famous_line where naver_key = %d;
+         """ %(query)
+    cur.execute(sql)
+
+    r = cur.fetchone()
+    list = []
+    while r:
+        t = (r['role_image'], r['contents'], r['role_name'], r['actor'], r['writer'], r['famous_line_date'])
+        list.append(t)
+        r = cur.fetchone()
+
+    close_db(conn, cur)
+    my_set = set(list)
+    return my_set
+
 def naver_key_select_user_review(query):
     conn, cur = open_db()
     sql = """select * from review where naver_key = %d;
@@ -241,7 +258,7 @@ def movie_detail(request, id):
     review = naver_key_select_user_review(id)
     #Todo: 댓글
     journalist_rate = naver_key_select_journalist_rate(id)
-
+    famous_line = naver_key_select_famous_line(id)
 
     template = loader.get_template('home/movie_detail.html')
     context = {
@@ -255,5 +272,6 @@ def movie_detail(request, id):
         'user_rate': user_rate,
         'review': review,
         'journalist_rate': journalist_rate,
+        'famous_line': famous_line,
     }
     return HttpResponse(template.render(context, request))

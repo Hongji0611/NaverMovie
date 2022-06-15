@@ -182,6 +182,27 @@
         {% endif %}
     </div>
 
+    <div>
+        <h2>명대사</h2>
+        {% if famous_line %}
+            {% for f in famous_line %}
+            <div style="background-color:#EDF7FF; padding: 10px;">
+                <img src="{{ f.0 }}"/>
+                <span>{{ f.1 }}</span>
+                <div>
+                    <span>{{ f.2 }}</span> |
+                    <span>{{ f.3 }}</span>
+                </div>
+                <div>
+                    <span>{{ f.4 }}</span> |
+                    <span>{{ f.5 }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+        {% endif %}
+    </div>
+
     {% else %}
         <p>잘못된 접근입니다.</p>
     {% endif %}
