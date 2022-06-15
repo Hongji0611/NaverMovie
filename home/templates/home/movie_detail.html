@@ -58,7 +58,7 @@
             {% if actor %}
                 {% for a in actor %}
                     <span>{{ a.0 }}</span>
-                    <span>({{ a.1 }})</span>
+                    <span>({{ a.4 }})</span>
                 {% endfor %}
             {% else %}
             {% endif %}
@@ -75,7 +75,24 @@
     </div>
 
     <div>
-        <h2>배우</h2>   
+        <h2>배우</h2>
+        {% if actor %}
+            <div style="background-color:#EDF7FF; padding: 10px;">
+            {% for a in actor %}
+                <img src="{{ a.2 }}"/>
+                <div>
+                    <p>{{ a.0 }}</p>
+                    {% if a.1 %}
+                        <p>{{ a.1 }}</p>
+                    {% else %}
+                    <span>{{ a.3 }}</span> |
+                    <span>{{ a.4 }}</span>
+                </div>
+            {% endif %}
+            {% endfor %}
+            </div>
+        {% else %}
+        {% endif %}
     </div>
 
     <div>

@@ -209,16 +209,16 @@ def naver_key_select_director(query):
 
 def naver_key_select_actor(query):
     conn, cur = open_db()
-    sql = """select a.kr_name, mr.role_name
+    sql = """select a.kr_name, a.eng_name, a.image, mr.main_or_support, mr.role_name
             from movie_role mr, actor a
-            where mr.aid = mr.aid and mr.naver_key = %d;
+            where mr.aid = a.aid and mr.naver_key = %d;
          """ %(query)
     cur.execute(sql)
 
     r = cur.fetchone()
     list = []
     while r:
-        t = (r['kr_name'], r['role_name'])
+        t = (r['kr_name'], r['eng_name'], r['image'], r['main_or_support'], r['role_name'])
         list.append(t)
         r = cur.fetchone()
 
@@ -268,12 +268,11 @@ def movie_detail(request, id):
     scope = naver_key_select_scope(id)
     country = naver_key_select_country(id)
     director = naver_key_select_director(id)
-    # actor = naver_key_select_actor(id)
+    actor = naver_key_select_actor(id)
     photo = naver_key_select_photo(id)
     video = naver_key_select_video(id)
     user_rate = naver_key_select_user_rate(id)
     review = naver_key_select_user_review(id)
-    #Todo: 댓글
     journalist_rate = naver_key_select_journalist_rate(id)
     famous_line = naver_key_select_famous_line(id)
 
@@ -290,6 +289,7 @@ def movie_detail(request, id):
         'review': review,
         'journalist_rate': journalist_rate,
         'famous_line': famous_line,
+        'actor': actor,
     }
     return HttpResponse(template.render(context, request))
 
