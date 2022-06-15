@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" style="height: 100%; margin: 0; padding: 0;">
+
+<head>
+    <meta charset="UTF-8">
+    <title>네이버 영화</title>
+</head>
+
+<body>
+    {% if movie %}
+    <div>
+        <img src="{{ movie.14 }}"/>
+        <p> {{ movie.2 }}</p>
+        <p> {{ movie.3 }}</p>
+        <div>
+            <span>관람객</span>
+            <span>{{ movie.4 }}</span>
+            <span>({{ movie.5 }})</span>
+        </div>
+        <div>
+            <span>네티즌</span>
+            <span>{{ movie.6 }}</span>
+            <span>({{ movie.7 }})</span>
+        </div>
+        <div>
+            <span>기자평론가</span>
+            <span>{{ movie.8 }}</span>
+            <span>({{ movie.9 }})</span>
+        </div>
+        <div>
+            <span>개요</span>
+            {% if scope %}
+            <span>{{ scope }}</span>
+            {% else %}
+            {% endif %}
+            |
+            {% if country %}
+            <span>{{ country }}</span>
+            {% else %}
+            {% endif %}
+            |
+            <span>{{ movie.10 }}</span>
+            |
+            <span>{{ movie.11 }} 개봉</span>
+        </div>
+        <div>
+            <span>감독</span>
+            {% if director %}
+                {% for d in director %}
+                    <span>{{ d.0 }}</span>
+                {% endfor %}
+            {% else %}
+            {% endif %}
+        </div>
+        <div>
+            <span>출연</span>
+            {% if actor %}
+                {% for a in actor %}
+                    <span>{{ a.0 }}</span>
+                    <span>({{ a.1 }})</span>
+                {% endfor %}
+            {% else %}
+            {% endif %}
+        </div>
+        <div>
+            <span>등급</span>
+            <span>[국내] {{ movie.13 }}</span>
+        </div>
+    </div>
+
+    <div>
+        <h2>줄거리</h2>
+        <p>{{ movie.12 }}</p>    
+    </div>
+
+    <div>
+        <h2>배우</h2>   
+    </div>
+
+    <div>
+        <h2>감독</h2>
+        {% if director %}
+            <div style="background-color:#EDF7FF; padding: 10px;">
+            {% for d in director %}
+                <img src="{{ d.2 }}"/>
+                <p>{{ d.0 }}</p>
+                {% if d.1 %}
+                    <p>{{ d.1 }}</p>
+                {% else %}
+            {% endif %}
+            {% endfor %}
+            </div>
+        {% else %}
+        {% endif %}
+    </div>
+
+    <div>
+        <h2>포토</h2>
+        {% if photo %}
+        <div style="background-color:#EDF7FF; padding: 10px;">
+            {% for p in photo %}
+                <img src="{{ p }}"/>
+            {% endfor %}
+        </div>
+        {% else %}
+        {% endif %}
+    </div>
+
+    <div>
+        <h2>동영상</h2>
+        {% if video %}
+            {% for v in video %}
+            <div style="background-color:#EDF7FF; padding: 10px;">
+                <img src="{{ v.0 }}"/>
+                <p>
+                    <a href="{{ v.1 }}">{{ v.2}}</a>
+                </p>
+                <p>{{ v.3 }}</p>
+            </div>
+            {% endfor %}
+        {% else %}
+        {% endif %}
+    </div>
+
+    <div>
+        <h2>평점</h2>
+        {% if user_rate %}
+            {% for u in user_rate %}
+            <div style="background-color:#EDF7FF; padding: 10px;">
+                <span>({{ u.0 }} 점)</span>
+                <span>{{ u.1 }}</span>
+                <div>
+                    <span>{{ u.2 }} | {{ u.5 }} | 신고</span>
+                </div>
+                <div>
+                    <span>좋아요 {{ u.3 }}</span>
+                    |
+                    <span>싫어요 {{ u.4 }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+        {% endif %}
+    </div>
+
+    <div>
+        <h2>리뷰</h2>
+        {% if review %}
+            {% for r in review %}
+            <div style="background-color:#EDF7FF; padding: 10px;">
+                <p>({{ r.1 }} 점)</p>
+                <div>
+                    <span>{{ r.2 }}</span>
+                    <span>{{ r.3 }}</span>
+                </div>
+                <div>
+                    <span>{{ r.4 }}</span>
+                    <span>조회 {{ r.5 }}</span> |
+                    <span>추천 {{ r.6 }}</span> | 신고
+                </div>
+                <p>{{ r.7 }}...</p>
+            </div>
+            {% endfor %}
+        {% else %}
+        {% endif %}
+    </div>
+
+    {% else %}
+        <p>잘못된 접근입니다.</p>
+    {% endif %}
+</body>
+
+</html>

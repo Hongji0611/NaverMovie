@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" style="height: 100%; margin: 0; padding: 0;">
+
+<head>
+    <meta charset="UTF-8">
+    <title>네이버 영화</title>
+</head>
+
+<body>
+    <p>검색 결과 화면</p>
+    <div>
+        {% if lists %}
+        <ul>
+            {% for list in lists %}
+            <a href="{% url 'detail' list.1 %}">
+                <li>{{ list.2 }} </li>
+            </a>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>검색 결과가 없습니다.</p>
+        {% endif %}
+    </div>
+</body>
+
+</html>

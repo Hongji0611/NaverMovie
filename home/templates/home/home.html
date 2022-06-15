@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" style="height: 100%; margin: 0; padding: 0;">
+
+<head>
+    <meta charset="UTF-8">
+    <title>네이버 영화</title>
+</head>
+
+<body>
+    <div>
+        <p>검색화면</p>
+        <form action="{% url 'search' %}" method="POST">
+            {% csrf_token %}
+                <div>
+                    <input type="search" placeholder="Search" name="query_str" value="{{query_str}}">
+                    <button id="search_btn" type="submit">
+                       <p>검색</p>
+                    </button>
+                </div>
+            
+            <p>정렬 조건</p>
+            <input type="radio" name="sort_condition" value="1">1. 가나다 순
+            <input type="radio" name="sort_condition" value="2">2. 가나다 역순
+            <input type="radio" name="sort_condition" value="3"> 3. 오래된 순
+            <input type="radio" name="sort_condition" value="4">4. 최신 순
+            <input type="radio" name="sort_condition" value="5">5. 평점 높은 순
+            <input type="radio" name="sort_condition" value="5">5. 평점 낮은 순
+
+            <p>검색 조건</p>
+            <input type="radio" name="search_condition" value="1">1. 한국 제목
+            <input type="radio" name="search_condition" value="2">2. 외국 제목
+            <input type="radio" name="search_condition" value="3"> 3. 한국 배우 이름
+            <input type="radio" name="search_condition" value="4">4. 외국 배우 이름
+            <input type="radio" name="search_condition" value="5">5. 한국 감독 이름
+            <input type="radio" name="search_condition" value="6"> 6. 외국 감독 이름
+            <input type="radio" name="search_condition" value="7"> 7. 장르
+            <input type="radio" name="search_condition" value="8"> 8. 날짜 (년)
+            <input type="radio" name="search_condition" value="9"> 9. 날짜 (월)
+            <input type="radio" name="search_condition" value="10"> 10. 날짜 (일)
+            <input type="radio" name="search_condition" value="11"> 11. 국가 검색
+        </form>
+    </div>
+</body>
+
+</html>
