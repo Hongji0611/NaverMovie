@@ -7,19 +7,15 @@
     <title>네이버 영화</title>
 </head>
 
-<body>
-    <div>
+<body style="background-color: #6E6E6E; ">
+    <div style="background-color: white; margin: 50px; padding: 40px;">
         <h2>댓글</h2>
         {% if comments %}
             {% for c in comments %}
-            <div style="background-color:#EDF7FF; padding: 10px;">
-                <p>{{ c.0 }}</p>
-                <p>{{ c.1 }}</p>
-                <p>{{ c.2 }} | 신고</p>
-                <div>
-                    <span>👍 {{ c.3 }}</span> |
-                    <span>👎{{ c.4 }}</span>
-                </div>
+            <div style="border-top: 1px solid #E5E5E5; padding: 10px;">
+                <p>🕵️‍♂️ {{ c.0 }}</p>
+                <p>"{{ c.1 }}"</p>
+                <p style="font-size: 14px;">{{ c.2 }} | 신고 | 좋아요 {{ c.3 }} | 싫어요{{ c.4 }}</p>
             </div>
             {% endfor %}
         {% else %}
