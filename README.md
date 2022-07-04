@@ -43,4 +43,4 @@ journalist_rate
 ![image](https://user-images.githubusercontent.com/63103070/177087950-89b2076b-ca1c-42a4-b29e-c6645a5a8c40.png)   
 
 ## 시연 영상
-https://youtu.be/yfTa_d_8WvQ
+https://www.youtube.com/watch?v=XCfpX5oAyTs
